@@ -7,6 +7,8 @@ const axios = require('axios');
 const SIGHTENGINE_API_USER = process.env.SIGHTENGINE_API_USER;
 const SIGHTENGINE_API_SECRET = process.env.SIGHTENGINE_API_SECRET;
 const SIGHTENGINE_URL = process.env.SIGHTENGINE_URL;
+const ASSEMBLY_AI_API_KEY = process.env.ASSEMBLY_AI_API_KEY;
+const ASSEMBLY_AI_URL = process.env.ASSEMBLY_AI_URL;
 
 
 
@@ -263,14 +265,12 @@ const videoModeration = async (req, res) => {
 
 // 🔁 Convert audio URL to spoken text using AssemblyAI
 const convertAudioToText = async (audioUrl) => {
-    const apiKey = 'cedb1ecb3fc34df7895707c901549fa6';
-  
-    // Step 1: Send URL for transcription
-    const transcribeRes = await axios.post('https://api.assemblyai.com/v2/transcript', {
+      // Step 1: Send URL for transcription
+    const transcribeRes = await axios.post(ASSEMBLY_AI_URL, {
       audio_url: audioUrl,
     }, {
       headers: {
-        authorization: apiKey,
+        authorization: ASSEMBLY_AI_API_KEY,
         'content-type': 'application/json',
       },
     });
@@ -282,8 +282,8 @@ const convertAudioToText = async (audioUrl) => {
     let transcriptText = '';
   
     while (status !== 'completed') {
-      const pollingRes = await axios.get(`https://api.assemblyai.com/v2/transcript/${transcriptId}`, {
-        headers: { authorization: apiKey },
+      const pollingRes = await axios.get(`${ASSEMBLY_AI_URL}/${transcriptId}`, {
+        headers: { authorization: ASSEMBLY_AI_API_KEY },
       });
   
       status = pollingRes.data.status;
