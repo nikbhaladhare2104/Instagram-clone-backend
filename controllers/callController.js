@@ -4,6 +4,10 @@ const User = require('../models/userModel');
 
 const axios = require('axios');
 
+const SIGHTENGINE_API_USER = process.env.SIGHTENGINE_API_USER;
+const SIGHTENGINE_API_SECRET = process.env.SIGHTENGINE_API_SECRET;
+const SIGHTENGINE_URL = process.env.SIGHTENGINE_URL;
+
 
 
 const createCall = async(req,res)=>{
@@ -215,15 +219,12 @@ const videoModeration = async (req, res) => {
     }
 
     // Sightengine API credentials
-    const apiUser = '516692053';
-    const apiSecret = '9yvVK3JG5bAmvf87M9JaWjweU5fAwk3p';
-
-    const response = await axios.get('https://api.sightengine.com/1.0/check.json', {
+    const response = await axios.get(SIGHTENGINE_URL, {
       params: {
         url: imageUrl,
         models: 'nudity,wad,offensive',
-        api_user: apiUser,
-        api_secret: apiSecret,
+        api_user: SIGHTENGINE_API_USER,
+        api_secret: SIGHTENGINE_API_SECRET,
       },
     });
 
