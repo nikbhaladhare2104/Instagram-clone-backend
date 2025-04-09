@@ -9,6 +9,7 @@ const SIGHTENGINE_API_SECRET = process.env.SIGHTENGINE_API_SECRET;
 const SIGHTENGINE_URL = process.env.SIGHTENGINE_URL;
 const ASSEMBLY_AI_API_KEY = process.env.ASSEMBLY_AI_API_KEY;
 const ASSEMBLY_AI_URL = process.env.ASSEMBLY_AI_URL;
+const SIGHTENGINE_URL_FOR_AUDIO_MODERATION = process.env.SIGHTENGINE_URL_FOR_AUDIO_MODERATION
 
 
 
@@ -332,16 +333,13 @@ const convertAudioToText = async (audioUrl) => {
       }
   
       // Step 2: Send transcribed text to Sightengine
-      const apiUser = '516692053';
-      const apiSecret = '9yvVK3JG5bAmvf87M9JaWjweU5fAwk3p';
-  
-      const moderationResponse = await axios.get('https://api.sightengine.com/1.0/text/check.json', {
+      const moderationResponse = await axios.get(SIGHTENGINE_URL_FOR_AUDIO_MODERATION, {
         params: {
           text: transcribedText,
           mode: 'standard',
           lang: 'en',
-          api_user: apiUser,
-          api_secret: apiSecret,
+          api_user: SIGHTENGINE_API_USER,
+          api_secret: SIGHTENGINE_API_SECRET,
         },
       });
   
