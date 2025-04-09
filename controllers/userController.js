@@ -4,11 +4,13 @@ const bcrypt= require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer= require('nodemailer');
 const { blacklistToken } = require('../middleware/authMiddleware');
-const SECRET_KEY = "YOUR_SECRET_KEY";
+
 const Follow = require('../models/followModel');
 const Post = require('../models/postModel');
 const Block = require('../models/blockModel');
 const Favorite = require('../models/favoriteModel');
+
+const SECRET_KEY = process.env.SECRET_KEY;
 
 const registerUser = async (req, res) => {
     // #swagger.tags= ['Users']    
