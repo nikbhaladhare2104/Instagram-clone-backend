@@ -2,11 +2,14 @@ const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 
+const GMAIL_USER_EMAIL = process.env.GMAIL_USER_EMAIL;
+const GMAIL_SERVICE_PASS = process.env.GMAIL_SERVICE_PASS;
+
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'lenkaharish6@gmail.com',
-        pass: 'gvfb syyc xovc ksrq'
+        user: GMAIL_USER_EMAIL,
+        pass: GMAIL_SERVICE_PASS
     }
 });
 
@@ -37,7 +40,7 @@ const forgotPassword = async (req, res) => {
         await user.save();
 
         const mailOptions = {
-            from: 'lenkaharish6@gmail.com',
+            from: GMAIL_USER_EMAIL,
             to: email,
             subject: 'Your OTP Code',
             text: `Your OTP code is ${otp}. It is valid for 10 minutes.`

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -7,7 +8,6 @@ const apiRoutes = require('./routes/apiRoutes');
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger_output.json");
 
-require('dotenv').config();
 
 
 const PORT = process.env.PORT;
